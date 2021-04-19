@@ -1,0 +1,274 @@
+\documentclass[%
+    paper=A4,               % paper size --> A4 is default in Germany
+    twoside=true,           % onesite or twoside printing
+    openany,              % doublepage cleaning ends up right side
+    parskip=full,           % spacing value / method for paragraphs
+    chapterprefix=true,     % prefix for chapter marks
+    11pt,                   % font size
+    headings=normal,        % size of headings
+    bibliography=totoc,     % include bib in toc
+    listof=totoc,           % include listof entries in toc
+    titlepage=on,           % own page for each title page
+    captions=tableabove,    % display table captions above the float env
+    draft=false,            % value for draft version
+]{scrreprt}
+
+\usepackage[english]{babel} % babel system, adjust the language of the content
+\PassOptionsToPackage{% setup clean thesis style
+    figuresep=colon,%
+    sansserif=true,%
+    hangfigurecaption=false,%
+    hangsection=true,%
+    hangsubsection=true,%
+    colorize=full,%
+    colortheme=bluemagenta,%
+    wrapfooter=false,%
+}{cleanthesis}
+\usepackage{cleanthesis}
+
+\newcommand{\reportTitle}{\textcolor{ugent_blue}{Intelectual property and valorization: AUGChem}} 
+\newcommand{\reportName}{\textbf{Ruben Van der Stichelen and Xander Wieme}}
+\newcommand{\reportSubject}{\emph{Your report subject}}
+\newcommand{\reportDate}{}
+\newcommand{\reportVersion}{}
+
+\hypersetup{% setup the hyperref-package options
+    pdftitle={\reportTitle},    %   - title (PDF meta)
+    pdfsubject={\reportSubject},%   - subject (PDF meta)
+    pdfauthor={\reportName},    %   - author (PDF meta)
+    plainpages=false,           %   -
+    colorlinks=false,           %   - colorize links?
+    pdfborder={0 0 0},          %   -
+    breaklinks=true,            %   - allow line break inside links
+    bookmarksnumbered=true,     %
+    bookmarksopen=true          %
+}
+
+\definecolor{ugent_blue}{RGB}{30, 100, 200}
+\definecolor{sciences}{RGB}{45, 140, 168}
+
+\usepackage{algorithm}              % http://ctan.org/pkg/algorithms
+\usepackage{algpseudocode}          % http://ctan.org/pkg/algorithmicx
+\usepackage{amsmath}
+\usepackage{amsfonts}             % mathfrak
+\usepackage{amssymb}              % \mathbb
+\usepackage[mathscr]{euscript}    % \mathscr
+\usepackage{chemmacros}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{interval}
+\usepackage{mathtools}            % dcases, DeclareMathOperator, DeclairePairedDelimiter
+\usepackage{physics}               % physics typesetting, especially bra-ket notation
+\usepackage{siunitx}
+\usepackage{subcaption}
+\usepackage{tensor}
+\usepackage{xcolor}
+\usepackage{ifxetex}
+\usepackage{multicol}
+\usepackage{pdfpages}
+\usepackage{epigraph}
+\usepackage{bm}
+\usepackage[normalem]{ulem}
+\usepackage[version=3]{mhchem}
+\usepackage[linewidth=1pt]{mdframed}
+\usepackage{enumitem}
+\usepackage{csquotes}
+\usepackage[official]{eurosym}
+\bibliography{bibliography}
+% listings python setting
+
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{9} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{9}  % for normal
+
+% Custom colors
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\usepackage{listings}
+
+\renewcommand{\rmdefault}{phv} % Arial
+\renewcommand{\sfdefault}{phv} % Arial
+\usepackage{chngcntr}
+\counterwithout{section}{chapter}
+\counterwithout{equation}{chapter}
+\counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
+
+\DeclareSymbolFont{euleroperators}{U}{eur}{m}{n}
+\SetSymbolFont{euleroperators}{bold}{U}{eur}{b}{n}
+
+\makeatletter
+\renewcommand{\operator@font}{\mathgroup\symeuleroperators}
+\makeatother
+
+% \usepackage[utf8]{inputenc} 
+
+\graphicspath{{img/}}
+\linespread{1.2}
+\numberwithin{equation}{section}
+\renewcommand{\thesection}{\arabic{section}}
+
+\title{\reportTitle}
+\author{\reportName\\GQCG}
+
+\begin{document}
+
+    \begin{titlepage}
+        \hspace{-1cm}\includegraphics[height=3cm]{faculty.png}
+        \begin{center}
+            \vspace{2cm}
+            \Huge{\reportTitle} \\
+            \vspace{1cm}
+            \Large{\reportName} \\
+            \vspace{2cm}
+            \vspace{0.5cm}
+            \large{Ghent University} \\ 
+            \large{\today}
+        \end{center}
+        \vspace{4cm}
+        \hspace{-1cm}\includegraphics[height=4cm]{UGent.png}
+    \end{titlepage}
+
+    % --------------------------
+    % rename document parts
+    % --------------------------
+    \renewcaptionname{english}{\figurename}{Fig.}
+    \renewcaptionname{english}{\tablename}{Tab.}
+
+    \setcounter{tocdepth}{2}		% define depth of toc
+
+    % --------------------------
+    % Body matter / main matter
+    % --------------------------
+    \pagenumbering{arabic}			% arabic page numbering
+    \setcounter{page}{1}			% set page counter
+    \pagestyle{maincontentstyle} 	% fancy header and footer
+
+    \section{Introduction}
+    \label{sec:intro}
+    For many students, practical excercises are the most stimulating classes. Something can be said for this approach, since it requires students to actively think about what they
+    are doing, compared to theoretical classes in which no active input is required. In chemistry, practical excercises can hardly be overrated, since the entire field is based on
+    experimenting. However, doing excercises in comes with some drawbacks. First off all, practical excercises imply exposure to dangersous substances. While this is a competence one
+    needs to aquire, more advanced expirements are not open to beginners. Reagents like mercury of cyanide are off limits, but working with these reagents is important. However, the
+    barrier to work with them is rather steep. Secondly, chemicals can be very expensive. Catalysts, for example, tend to be very costly. Next up, there are the waiting times in 
+    general. One can imagine that in a high school setting these advanced practical exercises are not readily accesible, which is a shame considering these might help to awaken an
+    interest in chemistry for certain students. We will propose a way to simulate experiments using augmented reality. 
+
+    \section{Description}
+    \label{sec:descript}
+    The concept is fairly simple. We use augmented reality (AR) to simulate fluids in empty glassware. In this way we will be able to simulate advanced chemical experiments without
+    the need of an advanced laboratory. There are two components to the implementation of this concept. The first one is the augmented reality software, the second one is marked 
+    glassware that this software can recognise. \\
+    For the software we use the Unity Real-Time Development Platform. This platform is used to create 3D content in varouis applications, ranging from games to engineering software
+    and movies. For this software platform we used two extensions. The first one is the vuforia engine, which allows the development of AR software. Secondly, there is NVIDIA FleX. 
+    This is simulation software that can simulate fluids. The idea behind the software is pretty simple. AR cameras recognise a certain patern, like a QR code. They are programmed 
+    to superimpose another image on to of this image. In our example, the goal is to show the camera a piece of glassware and it will then add the fluid (for example benzene, which
+    is very dangerous) to the receptacle. A series of manipulations can then be done on this piece of glassware, and all the while the software tracks what is being done and shows
+    the result on the screen. The remaining matter at hand is then the recognition of the glassware in question. How will the camera know what receptacle is being used? We propose
+    to use a laser etchin technique. Using a laser we will be able to graft a patern into the glassware, let us say a round bottom flask as an example. This patern can not be 
+    detected by the human eye, but a special camera is able to see it. (for example Ipads have a camera capable of doing so) Then the camera adds the liquid to the image on the 
+    screen. \\
+    With the two components in place we can now give an example of how we see this innovation in action. Imagine a high school chemistry demo, in which the teacher is showing the 
+    students some experiment. This is nowadays limited to mundane experiments that are relatively safe. Using the AR camera and our app however, a far more advanced experiment, using
+    more dangerous chemicals could be simulated in front of the class, even with active participation of the students. They could help build the setup or do some basic manipulations
+    (e.g. extractions), without risk of exposing anyone to dangerous chemicals. \\
+    Concretely we see this as follows. When someone buys a standard package of AUGChem one gets a collection of standard glassware, like round bottom flasks, erlenmeyer flasks,
+    graduated cilinders and beakers. These all carry a laser etched marking on them, all the way around the flask. This way, it does not matter in which orientation the receptacle
+    is held for the camera to recognise it. It also comes with a authentification code which will allow the download of the app from our website. On this website one can also find
+    a database with preprogrammed demos and exercises, so peole that do not feel comfortable with the software can easily get into it, while more hardened programmers might even
+    try to make their own exercises. \\
+    We need to keep in mind that AUGChem is not a replacement for actual hands-on lab work. It is meant as a support tool during chemistry classes in high school and can be used to
+    make university grade classes of chemical subjects more interactive. In this way it might help students to understand the material, or even motivate them for the content.
+    It can also help students that do not feel comfortable manipulating dangerous chemicals practice in a harmless environment before facing the music in the real practical. 
+    However, practical skills are still an essential part of a chemical education and can not be replaced by any simulation. However, we can assist in making chemical education more 
+    stimulating. 
+
+
+    \section{Prior Art Search and Discussion}
+    \label{sec:priorart}
+
+        \begin{table}[h!]
+            \begin{tabular}{|c|c|c|}
+                \hline
+                \textbf{Title} & \textbf{Site} & \textbf{Filters} \\
+                \hline
+                labster & google &  \\
+                Microsoft hololens & espacenet & Title, abstract or claims: hololens \\
+                & & Inventors or applicants: Microsoft \\
+                Lab teaching equipment & espacenet & Title, abstract or claims: augmented reality \\
+                 & & Title, abstract or claims: chemistry \\
+                \hline
+            \end{tabular}
+        \end{table}
+
+        Labster is a chemical laboratorium in a virtual environment. This program gives you access to high tech lab instruments that would otherwise be too expensive for a school/ university to buy.
+        Students have with labster the ability to practice more advanced and dangerous experiments earlier in there study. AUGChem, while having sort of the same goal, uses a differenct approach. Our program 
+        still requires a chemical lab, but this lab don't need to have the normal safety requirement a standard chemical lab needs. The reason herefore is that we don't use real chemicals, only real glassware. 
+        The students still practice the real procedure, while the chemicals are safely simulated. We can conclude that Labster is not prior art to AUGChem.
+    
+
+    
+
+    \section{Possibilities for IP Protection}
+    \label{sec:protection}
+    \begin{itemize}
+        \item copyright on software
+        \item copyright on database
+        \item patent on glassware
+        \item trademark on logo and brandname
+    \end{itemize}
+
+    \section{Assesment of Value}
+    \label{sec:assesment}
+    Given that there are two components to the project, we need to come from those two sides. First we will need to asses deals on the software side of things, then we will need to
+    evaluate how mush the glasware is worth. \n
+    The software part of the inovation includes the software itsself, plus acces to a database of previously programmed lab scenarios. Usually this kind of software is given free,
+    with the ability to upgrade the subscriptions. For example coSpaces Edu gives the user acces to a software program that allows to create lessons in a virtual or AR environment. 
+    This is not so different from what we want to do, only we are aiming specifically at chemistry. You can unlock the full scope of the program starting at \$ 180 per year for
+    thirty people (which we assume to be a whole class) with the possibility to upgrade. (e.g. to add more people to your classrooms). The afformentioned labster is also covers a 
+    very broad part of the sciences, using a similar concept, only in a completely virtual environment. They have a subscription of \$ 5000 per year. However, since AUGChem covers
+    a significantly smaller area (only chemistry) and the purchase of the glassware is also needed, we will charge less then these two players. \n
+    We base the glassware on standard chemical glassware prices. The laser treatment would increase the price, but chemical glassware is usually borosilicate glass. This is of course
+    needed because it needs to withstand harsh conditions (temperature, acidity etc.). However, since our glassware will not need to face said conditions it could be normal sodium
+    glass which can reduce the price. For that reason we will assume that the pricing of the glass will not change from normal chemical glassware. Now this pricing is highly variant 
+    depending on the manufacturer of the glassware. Given that we do not seek high performance chemial glassware, or (as of yet) very specific receptacles, we will adopt the 
+    pricing of glasatelier Saillart, a belgian company that sells laboratory glassware. The prices vary off course, since they sell different brands of glassware, but we selected some
+    reasonalble prices from their catalogue. These can be seen in \ref{tab:glassware}.
+
+    \begin{table} [h!]
+        \begin{tabular} {|c|c|}
+            \label{tab:glassware}
+            item & pricing \\
+            \hline
+            beaker 100 ml & \euro{1.13} \\
+            beaker 250 ml & \euro{1.34} \\
+            erlenmeyer flask 100 ml & \euro{5.96} \\
+            erlenmeyer flask 250 ml & \euro{6.55} \\
+            round bottom flask 100 ml & \euro{5.62} \\
+            graduated cilinder 250 ml & \euro{13.78} \\
+        \end{tabular} 
+
+    We do need to be aware that if we are to make a website, we need to purchase a domain name. The domain name augchem.com will cost us \euro{7.56} per year.
+    We assume that there will be no schools that stop using after buying. This means that we only need to make new glassware for the new customers. This glassware will not be 
+    charged, we see it as a gift to jump start a fruitfull cooperation. So we only need to account for the cost of goods sold in the years where we gain new customers. 
+    \end{table} 
+
+    There are 2100 in Flanders and we take an average of 800 students per school. In every class there are around 25 students, this implies that there are 6 classes each year. The first 2 years 
+    don't have lab excercises, so we end up with 20 classes or 500 students per school that can use our product. If we assume that every class has a laboratory excercises every 3 weeks, 1 school uses 
+    187 sessions of AUGChem per school year. For assigning a licence cost we need to take in account the possible savings in chemicals waste disposal and purchase of chemicals. When a school needs to dipossits
+    every 1.5 weeks its acid and basic waste, on year basis this comes down on a cost of around 1000euros. The purchase of chemicals can be done on a less frequent basis, which can also save a couple of hundred euros.
+    With this all taken in reason we value our licence on 940 euros per year per school (this includes the glassware as mentioned previously as well an option to replace glassware free of charge once a year).
+
+
+    \section{Conclusion}
+    \label{sec:conclusion}
+
+    % \begin{thebibliography}
+        https://www.labster.com/
+        https://worldwide.espacenet.com/patent/search?q=ctxt%20%3D%20%22hololens%22%20AND%20ia%20%3D%20%22microsoft%22
+        https://worldwide.espacenet.com/patent/search/family/072664362/publication/WO2020198824A1?q=ctxt%20%3D%20%22augmented%20reality%22%20AND%20ctxt%20%3D%20%22chemistry%22
+    % \end{thebibliography}
+\end{document}
